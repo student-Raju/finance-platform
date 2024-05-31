@@ -1,5 +1,7 @@
-import { Hono } from 'hono'
-import { handle } from 'hono/vercel'
+import { Hono } from 'hono';
+import { z } from 'zod';
+import { zValidator } from '@hono/zod-validator';
+import { handle } from 'hono/vercel';
 
 export const runtime = 'edge';
 
@@ -11,15 +13,29 @@ app
     message: 'Hello Next.js!',
   })
 })
-
-.get("/hello/:test",(c) =>{
-   const test=c.req.param("test");
-
-   return c.json({
+.get(
+  "/hello/:test",
+(c)=>{
+  return c.json({
     message:"Hello World",
-    test:test,
-   })
+    
+  })
+ })
+ .post("/create/:postId",
+  zValidator("json",z.object({
+    name:z.string(),
+    userId:z.number(),
+  })),
+   zValidator("param",z.object({
+   
+    postId:z.number(),
+  })),
+(c)=>{
+  const{name,userId}=c.req.valid("json");
+   const{postId}=c.req.valid("param");
+  return c.json({});
 })
+
 
 export const GET = handle(app);
 export const POST = handle(app);
