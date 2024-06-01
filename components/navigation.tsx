@@ -5,12 +5,14 @@ import  {NavButton} from "@/components/nav-button";
 import {useMedia } from "react-use";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
+import { WelcomeMsg } from "@/components/welcome-msg";
 import {
     Sheet,
     SheetContent,
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { useRouter } from "next/navigation";
+import { UserButton } from "@clerk/nextjs";
 
 
 
@@ -64,12 +66,13 @@ export const Navigation =()=>{
                       <Button 
                       key={route.href}
                       variant={route.href===pathName?"secondary":"ghost"}
-                      onClick={()=>onClick(route.href)}>
+                      onClick={()=>onClick(route.href)}
+                      className="w-full justify-start">
                       {route.label}
                       </Button>
                   ))}
                 </nav>
-
+              
             </SheetContent>
            </Sheet>
         )
