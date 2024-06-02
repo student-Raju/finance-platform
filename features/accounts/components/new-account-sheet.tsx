@@ -1,3 +1,4 @@
+
 import { Sheet,
     SheetContent,
     SheetDescription,
@@ -5,6 +6,9 @@ import { Sheet,
     SheetTitle,
  } from "@/components/ui/sheet";
  import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
+import {  AccountForm } from "@/features/accounts/components/account-form";
+
+
 
 
  export const NewAccountSheet=()=>{
@@ -20,6 +24,7 @@ import { Sheet,
                    Create a new account to track your transactions.
                 </SheetDescription>
             </SheetHeader>
+            <AccountForm onSubmit={()=>{}} disabled={false} />
         </SheetContent>
         </Sheet>
     );
