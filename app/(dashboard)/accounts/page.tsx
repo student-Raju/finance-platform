@@ -19,6 +19,12 @@ import { DataTable } from "@/components/data-table";
       status: "pending",
       email: "m@example.com",
     },  
+    {
+        id: "728ed52f",
+        amount: 50,
+        status: "success",
+        email: "a@example.com",
+      },  
   ]
 
 const AccountsPage = () => {
@@ -38,7 +44,10 @@ const AccountsPage = () => {
        </CardHeader>
        <CardContent>
         
-      <DataTable columns={columns} data={data} />
+      <DataTable
+      filterKey="email"
+       columns={columns} data={data} onDelete={()=>{}}
+       disabled={false}/>
        </CardContent>
         </Card>
     </div>
