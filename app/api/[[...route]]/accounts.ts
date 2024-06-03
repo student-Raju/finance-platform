@@ -5,9 +5,9 @@ import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { zValidator } from "@hono/zod-validator";
 import  {createId} from "@paralleldrive/cuid2"
 
-import { error } from "console";
+
 import { eq } from "drizzle-orm";
-import { auth } from "@clerk/nextjs/server";
+
 
 
 const app=new Hono()
@@ -44,7 +44,7 @@ const app=new Hono()
          return c.json({error:"Unauthorized"},401);
       }
       const  [data]=await db.insert(accounts).values({
-         id:createId(),
+         id: createId(),
          userId:auth.userId,
          ...values,
       }).returning();
