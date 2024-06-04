@@ -2,7 +2,8 @@ import { Hono } from 'hono';
 import { z } from 'zod';
 import { zValidator } from '@hono/zod-validator';
 import { handle } from 'hono/vercel';
-import  accounts  from "./accounts"
+import  accounts  from "./accounts";
+import categories from "./categories";
 
 
 
@@ -15,6 +16,7 @@ const app = new Hono().basePath('/api');
 
 const routes = app
   .route("/accounts", accounts)
+  .route("/categories",categories);
 
 export const GET = handle(app);
 export const POST = handle(app);
