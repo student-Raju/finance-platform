@@ -12,7 +12,7 @@ import { Loader2, Plus } from "lucide-react";
 import {  columns } from "./columns";
 import { DataTable } from "@/components/data-table";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete";
+import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete-accounts";
 
 
 
@@ -57,7 +57,7 @@ const AccountsPage = () => {
        </CardHeader>
        <CardContent>  
       <DataTable
-      filterKey="email"
+      filterKey="name"
        columns={columns} data={accounts} 
        onDelete={(row)=>{
         const ids= row.map((r)=>r.original.id);
