@@ -2,7 +2,7 @@ import { date } from "drizzle-orm/mysql-core";
 import { z } from "zod";
 import { integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema} from "drizzle-zod";
-import { Relation, relations } from "drizzle-orm";
+import { relations } from "drizzle-orm";
 
 
 export const accounts=pgTable("accounts",{
@@ -31,29 +31,28 @@ export const insertCategorySchema = createInsertSchema(categories);
 
 export const transactions=pgTable("transactions",{
     id: text("id").primaryKey(),
-    amount: integer("amount").notNull(),
+    amount:integer("amount").notNull(),  
     payee:text("payee").notNull(),
     notes:text("notes"),
     date:timestamp("date",{mode:"date"}).notNull(),
-    accountId:text("accont_id").references(()=> accounts.id,{
+    accountId:text("account_id").references(()=>accounts.id,{
         onDelete:"cascade",
     }).notNull(),
     categoryId:text("category_id").references(()=>categories.id,{
         onDelete:"set null",
-    }),
-
+    })
 });
 export const transactionsRelations=relations(transactions,({one})=>({
-   account:one(accounts,{
+  account:one(accounts,{
     fields:[transactions.accountId],
     references:[accounts.id],
-   }),
-   categories:one(categories,{
+  }),
+  categories:one(categories,{
     fields:[transactions.categoryId],
     references:[categories.id],
-   }),
+  }),
 }));
 
-export const insertTranasctionSchema= createInsertSchema(transactions,{
-   date:z.coerce.date(),
-})
+export const insertTranasctionSchema=createInsertSchema(transactions,{
+    date:z.coerce.date(),
+});

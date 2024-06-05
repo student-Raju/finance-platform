@@ -4,7 +4,7 @@ import { zValidator } from '@hono/zod-validator';
 import { handle } from 'hono/vercel';
 import  accounts  from "./accounts";
 import categories from "./categories";
-import { transactions } from "./transactions"
+import  transactions  from "./transactions";
 
 
 
