@@ -10,6 +10,7 @@ import {subDays,parse} from "date-fns";
 
 import { and, desc, eq, gte, inArray, lte, sql } from "drizzle-orm";
 import { date } from "drizzle-orm/mysql-core";
+import { error } from "console";
 
 
 const app=new Hono()
@@ -124,6 +125,35 @@ const app=new Hono()
       }).returning();
     return c.json({data});
  })
+ .post(
+   "/bulk-create",
+   clerkMiddleware(),
+   zValidator(
+      "json",
+      z.array(
+         insertTranasctionSchema.omit({
+            id:true,
+         }),
+      ),
+   ),
+   async (c)=>{
+      const auth=getAuth(c);
+      const values=c.req.valid("json");
+      if(!auth?.userId){
+         return c.json({error:"Unauthorized"},401);
+      }
+      const data = await db
+      .insert(transactions)
+      .values(
+         values.map((value)=>({
+            id: createId(),
+            ...value,
+         }))
+      )
+      .returning();
+      return c.json({data});
+   },
+ )
  .post(
    "/bulk-delete",
    clerkMiddleware(),
