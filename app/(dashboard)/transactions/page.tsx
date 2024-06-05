@@ -16,9 +16,10 @@ import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete-a
 
 
 
+
   
 
-const AccountsPage = () => {
+const  TransactionsPage = () => {
     const newTransaction=useNewTransaction();
     const deleteAccounts=useBulkDeleteAccounts();
     const accountQuery=useGetAccounts();
@@ -70,4 +71,4 @@ const AccountsPage = () => {
   );
 };
 
-export default AccountsPage;
+export default TransactionsPage;
