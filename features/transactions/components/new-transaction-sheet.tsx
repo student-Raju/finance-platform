@@ -7,7 +7,7 @@ import {
     SheetTitle,
 } from "@/components/ui/sheet";
 
-import { insertTranasctionSchema } from "@/db/schema";
+import { insertTransactionSchema} from "@/db/schema";
 import { z } from "zod";
 import { useCreateTransaction } from "@/features/transactions/api/use-create-transaction";
 import { useCreateCategory } from "@/features/categories/api/use-create-category";
@@ -17,7 +17,7 @@ import { useCreateAccount } from "@/features/accounts/api/use-create-account";
 import {TransactionForm} from "@/features/transactions/components/transaction-form"
 import { Loader2 } from "lucide-react";
 
-const formSchema=insertTranasctionSchema.omit({
+const formSchema=insertTransactionSchema.omit({
     id:true,
 });
 type FormValues=z.input<typeof formSchema>;

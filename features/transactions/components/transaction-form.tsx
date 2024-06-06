@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 import  {zodResolver} from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import  {Button} from "@/components/ui/button";
-import { insertTranasctionSchema } from "@/db/schema";
+
 import { DatePicker } from "@/components/date-picker";
 import { AmountInput } from "@/components/amount-input";
 import{
@@ -18,6 +18,7 @@ FormMessage,
 import { Select } from "@/components/select";
 import { Textarea } from "@/components/ui/textarea";
 import { convertAmountToMiliunits } from "@/lib/utils";
+import {insertTransactionSchema} from "@/db/schema"
 
 const formSchema=z.object({
  date:z.coerce.date(),
@@ -27,7 +28,7 @@ const formSchema=z.object({
  amount:z.string(),
  notes:z.string().nullable().optional(),
 });
-const apiSchema=insertTranasctionSchema.omit({
+const apiSchema=insertTransactionSchema.omit({
     id:true,
 });
 type FormValues=z.input<typeof formSchema>;

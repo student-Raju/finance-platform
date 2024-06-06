@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1717249283103,
-      "tag": "0000_glamorous_kylun",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1717468156834,
-      "tag": "0001_purple_lake",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1717502854886,
-      "tag": "0002_chilly_mastermind",
+      "when": 1717685305196,
+      "tag": "0000_optimal_hellcat",
       "breakpoints": true
     }
   ]

@@ -28,7 +28,7 @@ export const AmountInput=({
 
     const onReverseValue=()=>{
         if(!value) return;
-        const newValue=parseFloat(value) * -1;
+        const newValue=parseFloat(value) *-1;
         onChange(newValue.toString());
     }
    return(
@@ -44,8 +44,8 @@ export const AmountInput=({
          )}
          >
             {!parsedValue && <Info className="size-3 text-white"/>}
-            {!isIncome && <PlusCircle className="size-3 text-white"/>}
-            {!isExpense && <MinusCircle className="size-3 text-white"/>}
+            {isIncome && <PlusCircle className="size-3 text-white"/>}
+            {isExpense && <MinusCircle className="size-3 text-white"/>}
          </button>
         </TooltipTrigger>
         <TooltipContent>

@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import {db} from "@/db/drizzle";
 import { z } from "zod";
-import {transactions,insertTranasctionSchema, categories, accounts} from "@/db/schema";
+import {transactions,insertTransactionSchema, categories, accounts} from "@/db/schema";
 import { clerkMiddleware, getAuth } from "@hono/clerk-auth";
 import { zValidator } from "@hono/zod-validator";
 import  {createId} from "@paralleldrive/cuid2";
@@ -110,7 +110,7 @@ const app=new Hono()
  .post(
    "/",
    clerkMiddleware(),
-   zValidator("json",insertTranasctionSchema.omit({
+   zValidator("json",insertTransactionSchema.omit({
       id:true,
    })),
    async (c)=>{
@@ -131,7 +131,7 @@ const app=new Hono()
    zValidator(
       "json",
       z.array(
-         insertTranasctionSchema.omit({
+         insertTransactionSchema.omit({
             id:true,
          }),
       ),
@@ -205,7 +205,7 @@ zValidator(
 ),
 zValidator(
    "json",
-   insertTranasctionSchema.omit({
+   insertTransactionSchema.omit({
       id:true,
    })
 ),
