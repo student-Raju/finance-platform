@@ -9,6 +9,8 @@ import {Card,
 } from "@/components/ui/card";
 
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { ImportTable } from "./import-table";
 
 const requiredOptions=[
     "amount",
@@ -31,6 +33,30 @@ export const ImportCard=({
     onCancel,
     onSubmit,
 }:Props)=>{
+    const [selectedColumns,setselectedColumns]= useState<SelectedColumnsState>({});
+    const headers=data[0];
+    const body=data.slice(1);
+
+    const onTableHeadSelectChange=(
+        columnIndex:number,
+        value:string | null
+    )=>{
+        setselectedColumns((prev)=>{
+            const newSelectedColumns={...prev};
+
+            for(const Key in newSelectedColumns){
+                if(newSelectedColumns[Key ]===value){
+                    newSelectedColumns[Key]=null;
+                }
+            }
+            if(value==="skip"){
+                value=null;
+            }
+            newSelectedColumns[`column_${columnIndex}`]=value;
+            return newSelectedColumns;
+        });
+    };
+
     return(
         <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
         <Card className="border-none drop-shadow-sm">
@@ -46,7 +72,11 @@ export const ImportCard=({
        </div>
        </CardHeader>
        <CardContent> 
-        Hello
+        <ImportTable
+        headers={headers}
+        body={body}
+        selectedColumns={selectedColumns}
+        onTableHeadSelectChange={onTableHeadSelectChange}/>
        </CardContent>
        </Card>
        </div>
