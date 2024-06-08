@@ -2,6 +2,7 @@ import { Key } from "lucide-react";
 
 const dateFormat="yyyy-MM-dd HH:mm:ss";
 const outputFormat="yyyy-MM-dd";
+import {format,parse} from "date-fns"
 import {Card,
     CardContent,
     CardHeader,
@@ -11,6 +12,9 @@ import {Card,
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { ImportTable } from "./import-table";
+import { convertAmountFromMiliunits, convertAmountToMiliunits } from "@/lib/utils";
+
+
 
 const requiredOptions=[
     "amount",
@@ -88,8 +92,12 @@ export const ImportCard=({
                 return acc;
             },{});
          });
-       console.log({arrayofData});
-         
+      const formattedData=arrayofData.map((item)=>({
+        ...item,
+        amount: convertAmountToMiliunits(parseFloat(item.amount)),
+        date: format(parse(item.date,dateFormat,new Date()),outputFormat)
+      }));
+      onSubmit(formattedData);      
     };
 
     return(
