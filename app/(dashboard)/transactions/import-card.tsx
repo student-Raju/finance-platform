@@ -45,7 +45,7 @@ export const ImportCard=({
             const newSelectedColumns={...prev};
 
             for(const Key in newSelectedColumns){
-                if(newSelectedColumns[Key ]===value){
+                if(newSelectedColumns[Key]===value){
                     newSelectedColumns[Key]=null;
                 }
             }
@@ -58,6 +58,40 @@ export const ImportCard=({
     };
     const progress=Object.values(selectedColumns).filter(Boolean).length;
 
+    const handleContinue=()=>{
+        const getColumnIndex=(column:string)=>{
+            return column.split("_")[1];
+        };
+
+        const mappedData={
+            headers: headers.map((_header,index)=>{
+                const columnIndex=getColumnIndex(`column_${index}`);
+                return selectedColumns[`column_${columnIndex}`] || null;
+            }),
+            body: body.map((row)=>{
+                const transformedRow=row.map((cell,index)=>{
+                    const columnIndex=getColumnIndex(`column_${index}`);
+                    return selectedColumns[`column_${columnIndex}`]? cell: null;
+                });
+
+                return transformedRow.every((item) =>item === null)
+                ? []
+                : transformedRow;
+            }).filter((row)=> row.length>0),
+        };
+        const arrayofData=mappedData.body.map((row)=>{
+            return row.reduce((acc: any,cell,index)=>{
+                const header=mappedData.headers[index];
+                if (header !== null){
+                    acc[header]=cell;
+                }
+                return acc;
+            },{});
+         });
+       console.log({arrayofData});
+         
+    };
+
     return(
         <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
         <Card className="border-none drop-shadow-sm">
@@ -65,12 +99,16 @@ export const ImportCard=({
       <CardTitle className="text-xl line-clamp-1">
        Import Transaction
       </CardTitle>
-      <div className="flex items-center gap-x-2">
-      <Button onClick={onCancel}size="sm">
+      <div className="flex flex-col lg:flex-row gap-y-2 items-center gap-x-2">
+      <Button onClick={onCancel}size="sm" className="w-full lg:w-auto">
         
        Cancel
       </Button>
-      <Button>
+      <Button 
+      size="sm"
+      disabled={progress<requiredOptions.length}
+      onClick={handleContinue}
+      className="w-full lg:w-auto">
         Continue ({progress}/ {requiredOptions.length})
       </Button>
        </div>

@@ -19,7 +19,6 @@ type Props={
 const options=[
     "amount",
     "payee",
-    "notes",
     "date",
 ];
 
