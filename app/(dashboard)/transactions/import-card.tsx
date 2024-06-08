@@ -56,6 +56,7 @@ export const ImportCard=({
             return newSelectedColumns;
         });
     };
+    const progress=Object.values(selectedColumns).filter(Boolean).length;
 
     return(
         <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
@@ -68,6 +69,9 @@ export const ImportCard=({
       <Button onClick={onCancel}size="sm">
         
        Cancel
+      </Button>
+      <Button>
+        Continue ({progress}/ {requiredOptions.length})
       </Button>
        </div>
        </CardHeader>
