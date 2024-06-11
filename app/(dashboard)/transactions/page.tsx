@@ -52,7 +52,8 @@ const onCancelImport=()=>{
     const deleteTransactions=useBulkDeleteTransactions();
     const transactionsQuery=useGetTransactions();
     const transactions= transactionsQuery.data || [];
-    const isDisabled=
+
+    const isDisabled =
     transactionsQuery.isLoading ||
     deleteTransactions.isPending;
 
