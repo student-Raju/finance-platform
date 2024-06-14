@@ -21,15 +21,15 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-    <html lang="en">
-      <body className={inter.className}>
+      <html lang="en">
+       <body className={inter.className}>
         <QueryProvider>
-      <SheetProvider/>
-      <Toaster/>
-        {children}
+        <SheetProvider/>
+         <Toaster/>
+         {children}
         </QueryProvider>
         </body>
-    </html>
+       </html>
     </ClerkProvider>
   );
 }
