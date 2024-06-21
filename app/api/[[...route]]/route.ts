@@ -12,7 +12,7 @@ import summary from "./summary";
 
 export const runtime = 'nodejs';
 
-const app = new Hono().basePath("/api");
+const app = new Hono().basePath("/api")
 
 app.use('*', clerkMiddleware());
 
@@ -21,7 +21,7 @@ const routes = app
   .route("/summary",summary)
   .route("/accounts", accounts)
   .route("/categories",categories)
-  .route("/transactions",transactions)
+  .route("/transactions",transactions);
   
 
 export const GET = handle(app);
